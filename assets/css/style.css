@@ -1430,11 +1430,13 @@ border-radius: 2px;
 }
 
 .project-container {
-    min-width: 100vh;
-    margin: -1rem auto 0 auto; /* moves container up slightly */
-    padding: 1rem 1rem; /* reduced vertical spacing */
+    width: 100%; /* instead of min-width: 100vh */
+    margin: -1rem auto 0 auto;
+    padding: 1rem 1rem;
     text-align: center;
+    box-sizing: border-box; /* ensure padding doesn't break layout */
 }
+
 
 .project-grid {
     display: grid;
