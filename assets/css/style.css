@@ -317,6 +317,7 @@ a:hover {
 }
 
 .intro-overlay.hidden .intro-bg {
+    display: none;
     opacity: 0;
 }
 
@@ -467,9 +468,6 @@ a:hover {
     position: relative;
     border: 3px solid transparent;
     background: linear-gradient(45deg, var(--skin-color), var(--accent-light)) border-box;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) padding-box, 
-        linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     padding: 3px;
