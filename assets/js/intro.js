@@ -1,39 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const introOverlay = document.querySelector('.intro-overlay');
-    const mainContent = document.querySelector('.main');
-    
-    // Function to handle the intro animation sequence
-    function runIntroAnimation() {
-        // Ensure the overlay is visible at the start
-        introOverlay.style.display = 'flex';
-        introOverlay.classList.remove('hidden');
-        mainContent.classList.remove('visible');
-        
-        // Start the animation sequence after a small delay
-        setTimeout(function() {
-            // Add 'hidden' class to fade out the intro overlay
-            introOverlay.classList.add('hidden');
-            
-            // Show the main content with a fade-in effect
-            setTimeout(function() {
-                mainContent.classList.add('visible');
-                
-                // Hide the intro overlay after animation completes
-                setTimeout(function() {
-                    introOverlay.style.display = 'none';
-                }, 1000); // Match this with the CSS transition duration
-                
-            }, 1500); // Start showing main content slightly before intro fully fades
-            
-        }, 4000); // Total intro duration: 4 seconds
+    const mainContent  = document.querySelector('.main');
+  
+    // Detect real reload and clear introShown
+    const navEntry = performance.getEntriesByType('navigation')[0];
+    const isReload = navEntry ? navEntry.type === 'reload'
+                              : (performance.navigation && performance.navigation.type === 1);
+  
+    if (isReload) {
+      sessionStorage.removeItem('introShown');
     }
-    
-    // Run the animation when the page loads
-    window.addEventListener('load', function() {
-        // Always run the animation on page load
+  
+    function runIntroAnimation() {
+      if (!introOverlay || !mainContent) return;
+  
+      introOverlay.style.display = 'flex';
+      introOverlay.classList.remove('hidden');
+      mainContent.classList.remove('visible');
+  
+      setTimeout(() => {
+        introOverlay.classList.add('hidden');
+  
+        setTimeout(() => {
+          mainContent.classList.add('visible');
+  
+          setTimeout(() => {
+            introOverlay.style.display = 'none';
+          }, 1000);
+        }, 1500);
+      }, 4000);
+    }
+  
+    if (!sessionStorage.getItem('introShown')) {
+      // Play intro only once
+      window.addEventListener('load', () => {
         runIntroAnimation();
-    });
-    
-    // Add a small delay to ensure all assets are loaded
-    setTimeout(runIntroAnimation, 100);
-});
+        sessionStorage.setItem('introShown', 'true');
+      });
+    } else {
+      // Instantly hide overlay BEFORE repaint
+      if (introOverlay) {
+        introOverlay.style.display = 'none';
+        introOverlay.classList.add('hidden');
+      }
+      if (mainContent) {
+        mainContent.classList.add('visible');
+      }
+    }
+  });
+  
