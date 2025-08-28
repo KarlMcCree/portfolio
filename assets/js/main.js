@@ -5,6 +5,13 @@ const navLinks = document.querySelectorAll('.nav-link');
 const hamburger =document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-links');
 const navOverlay = document.querySelector('.nav-overlay');
+const btn = document.getElementById("readMoreBtn");
+const aboutFull = document.getElementById("about-full");
+
+btn.addEventListener("click", () => {
+  const isOpen = aboutFull.classList.toggle("show");
+  btn.textContent = isOpen ? "Read Less" : "Read More";
+});
 
 
 // Toggle mobile menu
@@ -185,3 +192,4 @@ window.addEventListener("scroll", () => {
         }
     }
 });
+
