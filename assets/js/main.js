@@ -7,6 +7,8 @@ const navMenu = document.querySelector('.nav-links');
 const navOverlay = document.querySelector('.nav-overlay');
 const btn = document.getElementById("readMoreBtn");
 const aboutFull = document.getElementById("about-full");
+const toggleBtn = document.getElementById("theme-toggle");
+const body = document.body;
 
 btn.addEventListener("click", () => {
   const isOpen = aboutFull.classList.toggle("show");
@@ -193,3 +195,22 @@ window.addEventListener("scroll", () => {
     }
 });
 
+// Load saved preference
+if (localStorage.getItem("theme") === "light") {
+    body.classList.add("light-theme");
+    toggleBtn.textContent = "🌙"; // Moon means "go dark"
+  } else {
+    toggleBtn.textContent = "☀️"; // Sun means "go light"
+  }
+  
+  toggleBtn.addEventListener("click", () => {
+    body.classList.toggle("light-theme");
+  
+    if (body.classList.contains("light-theme")) {
+      localStorage.setItem("theme", "light");
+      toggleBtn.textContent = "🌙";
+    } else {
+      localStorage.setItem("theme", "dark");
+      toggleBtn.textContent = "☀️";
+    }
+  });

@@ -75,6 +75,30 @@
     --z-tooltip: 10;
 }
 
+.light-theme {
+    --body-color: #f8f9fa;
+    --skin-color: #0077b6;  /* deeper accent for light mode */
+    --accent-light: #90e0ef;
+    --accent-dark: #00b4d8;
+    --bg-color: #ffffff;
+    --bg-secondary: #f1f5f9;
+    --text-color: #1a1a1a;
+    --text-light: #333333;
+    --text-lighter: #555555;
+    --heading-color: #0077b6;
+    --border-color: #ddd;
+    --card-bg: #ffffff;
+    --card-hover: #f0f0f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(255, 255, 255, 0.9);
+    --success-color: #198754;
+    --error-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --neon-glow: none; /* soften glow for light mode */
+}
+
+
 /*=============== BASE ===============*/
 * {
     margin: 0;
@@ -1859,6 +1883,55 @@ z-index: 2;
     100% { transform: translateX(100%); }
 }
 
+/* Certificates Section */
+.certificates {
+    padding: 4rem 2rem;
+    background: var(--bg-secondary);
+    color: var(--text-light);
+    text-align: center;
+  }
+  
+  .certificates .section-title {
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-shadow: var(--neon-glow);
+  }
+  
+  .certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .certificate-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--neon-glow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--skin-color);
+  }
+  
+  .certificate-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 2px solid var(--skin-color);
+  }
+  
+  .certificate-card p {
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--text-lighter);
+  }
+  
 
 /*=============== CONTACT SECTION ===============*/
 .contact {
@@ -2320,4 +2393,41 @@ footer {
 ::-webkit-scrollbar-thumb {
     background: var(--scroll-thumb-color);
     border-radius: 4px;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    margin-left: auto; /* push it to the far right inside nav */
+    margin-right: 1rem; 
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    background: var(--bg-secondary);
+    color: var(--skin-color);
+    box-shadow: 0 0 8px var(--skin-color),
+                0 0 15px var(--skin-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px var(--accent-light),
+                0 0 25px var(--accent-light);
+}
+
+/* Make sure button doesn’t overlap hamburger on small screens */
+@media (max-width: 768px) {
+    #theme-toggle {
+        position: absolute;
+        top: 1rem;
+        right: 4rem; /* a bit left so it won’t clash with hamburger */
+        margin: 0;
+    }
 }
